@@ -1,4 +1,10 @@
-# Ignora archivos de configuración locales
+target
+.git
+.github
+.idea
+*.iml
+.DS_Store
+README.md# Ignora archivos de configuración locales
 .env
 *.iml
 .idea/
