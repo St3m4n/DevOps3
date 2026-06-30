@@ -1,0 +1,48 @@
+name: CI/CD Front Despacho
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "front_despacho/**"
+
+jobs:
+  build-push-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Configurar credenciales AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1
+
+    - name: Login en Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build y push a ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPO_NAME: front-despacho
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        cd front_despacho
+        docker build -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
+
+    - name: Desplegar en EKS
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPO_NAME: front-despacho
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        aws eks update-kubeconfig --region us-east-1 --name cluster-proyecto
+        # Actualiza la imagen en el Deployment de Kubernetes
+        # Sintaxis: kubectl set image deployment/<nombre-deployment> <nombre-contenedor>=$ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
+        kubectl set image deployment/front-despacho front-despacho=$ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
