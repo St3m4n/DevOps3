@@ -33,7 +33,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         cd back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
-        docker build -f back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO/Dockerfile -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$REPO_NAME:latest .
+        docker build -f Dockerfile -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$REPO_NAME:latest .
         docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
         docker push $ECR_REGISTRY/$REPO_NAME:latest
 

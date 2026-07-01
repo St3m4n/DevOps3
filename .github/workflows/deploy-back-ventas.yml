@@ -33,7 +33,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         cd back-Ventas_SpringBoot/Springboot-API-REST
-        docker build -f back-Ventas_SpringBoot/Springboot-API-REST/Dockerfile -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$REPO_NAME:latest .
+        docker build -f Dockerfile -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$REPO_NAME:latest .
         docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
         docker push $ECR_REGISTRY/$REPO_NAME:latest
 
