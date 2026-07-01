@@ -63,4 +63,4 @@ public class VentaController {
     }
 }
 
-//comentario para probar flujo
+//comentario para probar flujo de trabajo
