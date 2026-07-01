@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: front-despacho
   minReplicas: 2
-  maxReplicas: 6
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
@@ -29,7 +29,7 @@ spec:
     kind: Deployment
     name: back-despachos
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
@@ -49,7 +49,7 @@ spec:
     kind: Deployment
     name: back-ventas
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
