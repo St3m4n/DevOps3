@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: back-despachos
-          image: 637423327509.dkr.ecr.us-east-1.amazonaws.com/back-despachos:latest
+          image: 076866035318.dkr.ecr.us-east-1.amazonaws.com/back-despachos:latest
           ports:
             - containerPort: 8081
           resources:
