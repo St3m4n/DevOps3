@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: front-despacho
   namespace: proyecto-semestral
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "external"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 spec:
   type: LoadBalancer
   selector:
